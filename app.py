@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask # request (was used in section 4)
 from flask_restful import Api # Resource, reqparse (was used in section 4)
 from flask_jwt import JWT # jwt_required (was used in section 4)
@@ -9,7 +11,7 @@ from resources.item import Item, ItemList
 from resources.store import Store, StoreList
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # SQL Alchemy track modification is better than the flask
 app.secret_key = 'jake'
 api = Api(app)
